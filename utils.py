@@ -3,13 +3,36 @@ import re
 
 client = OpenAI()
 
-def query_openai_completion(**openai_completion_params):
+def query_openai_chat_completion(**openai_completion_params):
     """Function to send queries to OpenAI and receive the response."""
     try:
         response = client.chat.completions.create(
             **openai_completion_params
         )
         return response.choices[0].message.content.strip()
+    except Exception as e:
+        print("An error occurred:", e)
+        return None
+
+def query_openai_completion(**openai_completion_params):
+    """
+    Function to send queries to OpenAI and receive the response.
+
+    Args:
+        **openai_completion_params: Keyword arguments to be passed to the OpenAI completions.create() method.
+
+    Returns:
+        str: The text of the first choice in the response, stripped of leading and trailing whitespace.
+
+    Raises:
+        Exception: If an error occurs during the API call.
+
+    """
+    try:
+        response = client.completions.create(
+            **openai_completion_params
+        )
+        return response.choices[0].text.strip()
     except Exception as e:
         print("An error occurred:", e)
         return None
@@ -63,7 +86,7 @@ def extractNumber(question, response):
             {"role": "user", "content": prompt}
         ]  
     }
-    value = query_openai_completion(**params)
+    value = query_openai_chat_completion(**params)
     return extract_float(value)
 
 # Function to remove non-numeric characters except decimal point

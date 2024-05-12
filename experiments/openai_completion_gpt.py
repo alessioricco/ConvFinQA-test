@@ -1,6 +1,6 @@
 import dataframe
 from openai import OpenAI
-from utils import extract_float, extractNumber, standardize_and_compare
+from utils import extract_float, extractNumber, standardize_and_compare, query_openai_completion
 
 client = OpenAI()
 
@@ -40,29 +40,6 @@ def _create_document(data):
     document += "**Post-Text Analysis**:\n" + " ".join(data["post_text"]) + "\n\n"
     return document
 
-def _query_openai_completion(**openai_completion_params):
-    """
-    Function to send queries to OpenAI and receive the response.
-
-    Args:
-        **openai_completion_params: Keyword arguments to be passed to the OpenAI completions.create() method.
-
-    Returns:
-        str: The text of the first choice in the response, stripped of leading and trailing whitespace.
-
-    Raises:
-        Exception: If an error occurs during the API call.
-
-    """
-    try:
-        response = client.completions.create(
-            **openai_completion_params
-        )
-        return response.choices[0].text.strip()
-    except Exception as e:
-        print("An error occurred:", e)
-        return None
-
 def query_function(df, session_id, experiment, test_id, questions, item):
     """
     Executes a series of questions and answers using OpenAI's completion model.
@@ -96,7 +73,7 @@ def query_function(df, session_id, experiment, test_id, questions, item):
             "temperature": experiment["temperature"]
         }
         
-        response = _query_openai_completion(**openai_completion_params)
+        response = query_openai_completion(**openai_completion_params)
         extract_number = response
         if experiment.get("refine_result", False):
             extract_number = extractNumber(question, response)

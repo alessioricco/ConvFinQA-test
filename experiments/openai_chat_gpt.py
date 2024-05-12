@@ -1,9 +1,9 @@
-from openai import OpenAI
-import re
+# from openai import OpenAI
+# import re
 import dataframe
-from utils import extract_float, extractNumber, standardize_and_compare, query_openai_completion
+from utils import extractNumber, standardize_and_compare, query_openai_chat_completion
 
-client = OpenAI()
+# client = OpenAI()
 
 
 
@@ -92,7 +92,7 @@ If it's required a portion, it means it's a percentage
             "messages": chat
         }
         
-        response = query_openai_completion(**openai_completion_params)
+        response = query_openai_chat_completion(**openai_completion_params)
         extract_number = response
         if experiment.get("refine_result", False):
             extract_number = extractNumber(question, response)

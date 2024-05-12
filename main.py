@@ -3,8 +3,8 @@ import uuid
 
 from pandas import DataFrame
 # import test_openai_completion_davinci
-import test_openai_completion_gpt
-import test_openai_chat_gpt
+import experiments.openai_completion_gpt as openai_completion_gpt
+import experiments.openai_chat_gpt as openai_chat_gpt
 import dataframe
 import datetime
 
@@ -20,7 +20,7 @@ experiments = [
         "temperature":0.1,
         "max_tokens":100,
         "refine_result":True,
-        "query_function":test_openai_completion_gpt.query_function
+        "query_function":openai_completion_gpt.query_function
     },
     {
         "max_iterations":0,
@@ -30,7 +30,7 @@ experiments = [
         "temperature":0.1,
         "max_tokens":100,
         "refine_result":True,
-        "query_function":test_openai_chat_gpt.query_function
+        "query_function":openai_chat_gpt.query_function
     }
 ]
 
