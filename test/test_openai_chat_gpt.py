@@ -1,5 +1,6 @@
-from experiments.openai_chat_gpt import _format_table
+# python -m pytest test/test_openai_chat_gpt.py
 
+from experiments.openai_chat_gpt import _format_table
 def test_format_table():
     table_data = [
         ["Header1", "Header2"],

@@ -114,9 +114,8 @@ def standardize_and_compare(str1, str2):
     
     # Convert to float
     try:
-        
-        clean1 = extract_float(clean_string(str(str1)))
-        clean2 = extract_float(clean_string(str(str2)))
+        clean1 = str(extract_float(clean_string(str(str1))))
+        clean2 = str(extract_float(clean_string(str(str2))))
         
         num1 = float(clean1)
         num2 = float(clean2)
